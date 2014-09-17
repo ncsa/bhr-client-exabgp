@@ -6,9 +6,9 @@
 </%def>
 <%def name="block(b)" filter="trim">
 %if ':' in b['cidr']:
-    ${block_v6(b)};
+    ${block_v6(b)}
 %else:
-    ${block_v4(b)};
+    ${block_v4(b)}
 %endif
 </%def>
 
@@ -23,7 +23,7 @@ group edgerouters {
     #md5 'bgp_key_here';
     static {
     %for b in blocked:
-            ${block(b)}
+            ${block(b)};
     %endfor
     }
     process bhr-dynamic {
