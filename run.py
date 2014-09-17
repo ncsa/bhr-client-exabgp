@@ -1,29 +1,25 @@
 #!/usr/bin/env python
+from mako.template import Template
 from bhr_client.rest import Client
 import sys
 flush = sys.stdout.flush
 
 class ExaBgpBlocker:
     def __init__(self):
-        pass
+        self.t = Template(filename='template.mako')
+        self.block = self.t.get_def('block')
 
-    def make_route(self, action, ip):
-        if ':' in ip:
-            next_hop = "2001:DB8::DEAD:BEEF"
-        else:
-            next_hop = "192.168.127.1"
-
-        return "%s route %s next-hop %s community [no-export]" % (
-            action, ip, next_hop)
+    def make_route(self, action, b):
+        return action + " " + self.block.render(b=b)
 
     def block_many(self, records):
         for r in records:
-            print self.make_route("announce", r['cidr'])
+            print self.make_route("announce", r)
         flush()
 
     def unblock_many(self, records):
         for r in records:
-            print self.make_route("withdraw", r['block']['cidr'])
+            print self.make_route("withdraw", r['block'])
         flush()
 
 

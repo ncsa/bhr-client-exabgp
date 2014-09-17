@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import os
 import socket
 
 from mako.template import Template
@@ -19,4 +18,3 @@ context = {
 }
 
 print t.render(**context)
-os.system('pkill -HUP -f exabgp')

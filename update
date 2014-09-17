@@ -1,0 +1,3 @@
+#!/bin/sh
+./write_exa.py > inject.cfg
+pkill -USR1 -f exabgp/application/bgp

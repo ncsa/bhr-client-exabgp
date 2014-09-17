@@ -16,11 +16,11 @@ group edgerouters {
     peer-as 65501;
     local-as 65502;
     hold-time 3600;
-    router-id ${ip}
-    local-address ${ip}
+    router-id ${ip};
+    local-address ${ip};
     graceful-restart 1200;
 
-    //md5 'bgp_key_here';
+    #md5 'bgp_key_here';
     static {
     %for b in blocked:
             ${block(b)}
