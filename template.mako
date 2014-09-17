@@ -1,14 +1,14 @@
 <%def name="block_v4(b)" filter="trim">
-    route ${b['cidr']}           next-hop 192.168.127.1 community [ no-export ];
+    route ${b['cidr']} next-hop 192.168.127.1 community [ no-export ]
 </%def>
 <%def name="block_v6(b)" filter="trim">
-    route ${b['cidr']}           next-hop 2001:DB8::DEAD:BEEF community [ no-export ];
+    route ${b['cidr']} next-hop 2001:DB8::DEAD:BEEF community [ no-export ]
 </%def>
 <%def name="block(b)" filter="trim">
 %if ':' in b['cidr']:
-    ${block_v6(b)}
+    ${block_v6(b)};
 %else:
-    ${block_v4(b)}
+    ${block_v4(b)};
 %endif
 </%def>
 
