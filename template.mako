@@ -19,6 +19,7 @@ group edgerouters {
     router-id ${ip};
     local-address ${ip};
     graceful-restart 1200;
+    group-updates;
 
     #md5 'bgp_key_here';
     static {
