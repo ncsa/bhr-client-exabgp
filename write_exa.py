@@ -1,13 +1,10 @@
 #!/usr/bin/env python
 
 import socket
-
 from mako.template import Template
 
 from bhr_client.rest import Client
-from run import ExaBgpBlocker
 
-b = ExaBgpBlocker()
 c = Client(ident=None)
 
 t = Template(filename="./template.mako")
