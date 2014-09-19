@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from mako.template import Template
 from bhr_client.rest import Client
+from bhr_client.block_manager import BlockManager
 import os
 import sys
 flush = sys.stdout.flush
@@ -27,8 +28,10 @@ class ExaBgpBlocker:
 def main():
     ident = sys.argv[1]
 
-    c = Client(ident, blocker=ExaBgpBlocker())
-    c.run()
+    client = Client(ident)
+    blocker = ExaBgpBlocker()
+    m = BlockManager(client, blocker)
+    m.run()
 
 if __name__ == "__main__":
     main()
