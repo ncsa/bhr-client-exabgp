@@ -28,7 +28,7 @@ group edgerouters {
     %endfor
     }
     process bhr-dynamic {
-        run ./run.py bgp1;
+        run /Users/jazoff/test/bin/bhr-client-exabgp-process;
     }
 
     neighbor 192.168.2.201 {
