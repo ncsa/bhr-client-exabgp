@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from mako.template import Template
-from bhr_client.rest import Client
+from bhr_client.rest import login_from_env
 from bhr_client.block_manager import BlockManager
 import os
 import sys
@@ -26,9 +26,7 @@ class ExaBgpBlocker:
 
 
 def main():
-    ident = sys.argv[1]
-
-    client = Client(ident)
+    client = login_from_env()
     blocker = ExaBgpBlocker()
     m = BlockManager(client, blocker)
     m.run()

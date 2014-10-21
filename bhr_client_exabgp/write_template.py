@@ -4,10 +4,10 @@ import os
 import socket
 from mako.template import Template
 
-from bhr_client.rest import Client
+from bhr_client.rest import login_from_env
 
 def render_config():
-    c = Client(ident=None)
+    c = login_from_env()
     t = Template(filename=os.getenv("BHR_TEMPLATE"))
 
     context = {
