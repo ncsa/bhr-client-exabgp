@@ -18,7 +18,8 @@ setup(name='bhr-client-exabgp',
     zip_safe=False,
     install_requires=[
         "requests>=2.0",
-        "bhr_client>=0.1"
+        "bhr_client>=0.1",
+        "Mako==0.9.0",
     ],
     entry_points = {
         'console_scripts': [
