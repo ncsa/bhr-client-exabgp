@@ -1,0 +1,7 @@
+#!/bin/sh
+while true;do
+    #make sure another one isn't running
+    pkill -9 -f bhr-client-exabgp-process
+    bhr-client-exabgp-process
+    sleep 1
+done

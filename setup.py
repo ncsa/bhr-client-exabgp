@@ -1,4 +1,5 @@
 from setuptools import setup, find_packages
+from glob import glob
 
 version = '0.1'
 
@@ -24,5 +25,6 @@ setup(name='bhr-client-exabgp',
             'bhr-client-exabgp-process = bhr_client_exabgp.process:main',
             'bhr-client-exabgp-write-template = bhr_client_exabgp.write_template:main',
         ]
-    }
+    },
+    scripts=glob('scripts/*'),
 )
