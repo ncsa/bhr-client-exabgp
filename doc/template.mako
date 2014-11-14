@@ -1,8 +1,8 @@
 <%def name="block_v4(b)" filter="trim">
-    route ${b['cidr']} next-hop 192.168.127.1 community [ no-export ]
+    route ${b['cidr']} next-hop self community [ 64512:666 no-export ]
 </%def>
 <%def name="block_v6(b)" filter="trim">
-    route ${b['cidr']} next-hop 2001:DB8::DEAD:BEEF community [ no-export ]
+    route ${b['cidr']} next-hop self community [ 64512:666 no-export ]
 </%def>
 <%def name="block(b)" filter="trim">
 %if ':' in b['cidr']:
@@ -13,22 +13,22 @@
 </%def>
 
 group edgerouters {
-    peer-as 65501;
-    local-as 65502;
+    peer-as 65000;
+    local-as 64512;
     hold-time 3600;
     router-id ${ip};
     local-address ${ip};
     graceful-restart 1200;
     group-updates;
 
-    #md5 'bgp_key_here';
+    md5 'hello';
     static {
     %for b in blocked:
             ${block(b)};
     %endfor
     }
     process bhr-dynamic {
-        run /Users/jazoff/test/bin/bhr-client-exabgp-process;
+        run /home/bgp/python_env/bin/bhr-client-exabgp-loop;
     }
 
     neighbor 192.168.2.201 {

@@ -1,0 +1,8 @@
+#!/bin/bash
+exec 2>&1
+export BHR_TEMPLATE=`pwd`/template.mako
+export BHR_HOST=http://localhost:8000
+export BHR_TOKEN=003f656f26cadb7f0d4cfdf2771fc337010e3400
+export BHR_IDENT=bgp1
+bhr-client-exabgp-write-template > inject.cfg || exit 1
+exec  ~/exabgp-3.4.3/sbin/exabgp inject.cfg

@@ -1,4 +1,4 @@
 #!/bin/sh
 export BHR_TEMPLATE=`pwd`/template.mako
-./write_exa.py > inject.cfg
+bhr-client-exabgp-write-template > inject.cfg
 pkill -USR2 -f exabgp/application/bgp
