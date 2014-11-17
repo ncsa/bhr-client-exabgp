@@ -1,4 +1,4 @@
-BHR Client that uses [ExaBGP](https://github.com/Exa-Networks/exabgp)
+BHR Block manager that uses [ExaBGP](https://github.com/Exa-Networks/exabgp)
 
 See the example configuration files in examples/
 
