@@ -1,6 +1,6 @@
 BHR Client that uses [ExaBGP](https://github.com/Exa-Networks/exabgp)
 
-See the example configuration files in doc/
+See the example configuration files in examples/
 
 Site specific configuration is made up of:
 
