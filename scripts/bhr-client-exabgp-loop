@@ -1,4 +1,10 @@
 #!/bin/sh
+
+# from the exabgp examples:
+# ignore Control C
+# if the user ^C exabgp we will get that signal too, ignore it and let exabgp send us a SIGTERM
+trap '' SIGINT
+
 while true;do
     #make sure another one isn't running
     pkill -9 -f bhr-client-exabgp-process
