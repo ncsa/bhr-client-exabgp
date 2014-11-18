@@ -4,8 +4,8 @@ See the example configuration files in examples/
 
 Site specific configuration is made up of:
 
-    * The bhr client configuration - the environment variables for `BHR_HOST` AND `BHR_TOKEN`
-    * The exabgp configuration template.
+* The bhr client configuration - the environment variables `BHR_HOST` AND `BHR_TOKEN`
+* The exabgp configuration template.
 
 Configuration Template
 ======================
