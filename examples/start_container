@@ -1,0 +1,8 @@
+#!/bin/sh
+docker run -t -i --rm \
+    -v `pwd`/template.mako:/template.mako \
+    -e BHR_TEMPLATE=/template.mako \
+    -e BHR_HOST=http://localhost:8000 \
+    -e BHR_TOKEN=foo \
+    -e BHR_IDENT=bgp1 \
+    bhr-client-exabgp

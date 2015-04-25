@@ -1,0 +1,9 @@
+#!/bin/bash
+echo "Starting ExaBGP"
+echo "  BHR_TEMPLATE=${BHR_TEMPLATE}"
+echo "  BHR_HOST=${BHR_HOST}"
+echo "  BHR_TOKEN=${BHR_TOKEN:0:10}..."
+echo "  BHR_IDENT=${BHR_TEMPLATE}"
+
+bhr-client-exabgp-write-template > inject.cfg || exit 1
+exec /code/exabgp-3.4.3/sbin/exabgp inject.cfg
