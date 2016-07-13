@@ -5,10 +5,10 @@ version = '0.1'
 
 setup(name='bhr-client-exabgp',
     version=version,
-    description="BHR Client",
+    description="BHR block manager that uses exabgp for implementing blocks"
     long_description="",
     classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
-    keywords='passive dns',
+    keywords='bhr bgp exabgp',
     author='Justin Azoff',
     author_email='JAzoff@illinois.edu',
     url='',
