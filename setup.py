@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 from glob import glob
 
-version = '0.1'
+version = '0.2'
 
 setup(name='bhr-client-exabgp',
     version=version,
