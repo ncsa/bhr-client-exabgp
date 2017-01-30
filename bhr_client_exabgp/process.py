@@ -12,7 +12,7 @@ class ExaBgpBlocker:
         self.block = self.t.get_def('block')
 
     def make_route(self, action, b):
-        return action + " " + self.block.render(b=b).rstrip()
+        return action + " " + self.block.render(b=b).rstrip("\t\n ;")
 
     def block_many(self, records):
         for r in records:
