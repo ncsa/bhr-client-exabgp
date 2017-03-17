@@ -1,14 +1,14 @@
-<%def name="block_v4(b)" filter="trim">
-    route ${b['cidr']} next-hop self community [ 64512:666 no-export ]
+<%def name="block_v4(cidrs)" filter="trim">
+    attribute next-hop self community [ 65142:666 no-export ] nlri ${cidrs}
 </%def>
-<%def name="block_v6(b)" filter="trim">
-    route ${b['cidr']} next-hop self community [ 64512:666 no-export ]
+<%def name="block_v6(cidrs)" filter="trim">
+    attribute next-hop self community [ 65142:666 no-export ] nlri ${cidrs}
 </%def>
-<%def name="block(b)" filter="trim">
-%if ':' in b['cidr']:
-    ${block_v6(b)}
+<%def name="block(cidrs)" filter="trim">
+%if ':' in cidrs:
+    ${block_v6(cidrs)}
 %else:
-    ${block_v4(b)}
+    ${block_v4(cidrs)}
 %endif
 </%def>
 
@@ -23,9 +23,6 @@ group edgerouters {
 
     md5 'hello';
     static {
-    %for b in blocked:
-            ${block(b)};
-    %endfor
     }
     process bhr-dynamic {
         run /usr/local/bin/bhr-client-exabgp-loop;

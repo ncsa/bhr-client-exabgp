@@ -6,29 +6,65 @@ import os
 import sys
 flush = sys.stdout.flush
 
+def iterwindow(l, slice=50):
+    """Generate sublists from an iterator
+    >>> list(iterwindow(iter(range(10)),11))
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]]
+    >>> list(iterwindow(iter(range(10)),9))
+    [[0, 1, 2, 3, 4, 5, 6, 7, 8], [9]]
+    >>> list(iterwindow(iter(range(10)),5))
+    [[0, 1, 2, 3, 4], [5, 6, 7, 8, 9]]
+    >>> list(iterwindow(iter(range(10)),3))
+    [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]
+    >>> list(iterwindow(iter(range(10)),1))
+    [[0], [1], [2], [3], [4], [5], [6], [7], [8], [9]]
+    """
+
+    assert(slice > 0)
+    a=[]
+
+    for x in l:
+        if len(a) >= slice :
+            yield a
+            a=[]
+        a.append(x)
+
+    if a:
+        yield a
+
+BATCHSIZE = int(os.getenv("BHR_EXABGP_BATCH_SIZE", "50"))
+
+def write(msg):
+    sys.stdout.write(msg + "\n")
+    sys.stdout.flush()
+
 class ExaBgpBlocker:
     def __init__(self):
         self.t = Template(filename=os.getenv("BHR_TEMPLATE"))
         self.block = self.t.get_def('block')
 
-    def make_route(self, action, b):
-        return action + " " + self.block.render(b=b).rstrip("\t\n ;")
+    def make_routes(self, action, cidrs):
+        cidr_string = " ".join(cidrs)
+        return action + " " + self.block.render(cidrs=cidr_string).rstrip("\t\n ;")
+
+    def send_lots_of_routes(self, action, cidrs):
+        for batch in iterwindow(cidrs, BATCHSIZE):
+            write(self.make_routes(action, batch))
 
     def block_many(self, records):
-        for r in records:
-            print self.make_route("announce", r)
-        flush()
+        cidrs = [b['cidr'] for b in records]
+        self.send_lots_of_routes("announce", cidrs)
 
     def unblock_many(self, records):
-        for r in records:
-            print self.make_route("withdraw", r['block'])
-        flush()
+        cidrs = [r['block']['cidr'] for r in records]
+        self.send_lots_of_routes("withdraw", cidrs)
 
 
 def main():
     client = login_from_env()
     blocker = ExaBgpBlocker()
     m = BlockManager(client, blocker)
+    m.block_all_expected()
     m.run()
 
 if __name__ == "__main__":

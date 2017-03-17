@@ -11,7 +11,7 @@ def render_config():
     t = Template(filename=os.getenv("BHR_TEMPLATE"))
 
     context = {
-        "blocked": list(c.get_list()),
+        "blocked": [],
         'ip': socket.gethostbyaddr(socket.gethostname())[2][0]
     }
 

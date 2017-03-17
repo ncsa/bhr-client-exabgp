@@ -4,7 +4,7 @@ See the example configuration files in examples/
 
 Site specific configuration is made up of:
 
-* The bhr client configuration - the environment variables `BHR_HOST` AND `BHR_TOKEN`
+* The bhr client configuration - the environment variables `BHR_HOST`, `BHR_TOKEN`, and `BHR_IDENT`
 * The exabgp configuration template.
 
 Configuration Template
@@ -13,7 +13,7 @@ The configuration template is a [Mako template](http://docs.makotemplates.org/en
 
 The lines like
 
-    route ${b['cidr']} next-hop self community [ 64512:666 no-export ]
+    attribute next-hop self community [ 65142:666 no-export ] nlri ${cidrs}
 
 should be changed to match what your router is expecting.
 
