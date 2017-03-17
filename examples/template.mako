@@ -15,7 +15,8 @@ group edgerouters {
     static {
     }
     process bhr-dynamic {
-        run /usr/local/bin/bhr-client-exabgp-loop;
+        # auto filled in by bhr-client-exabgp-write-template
+        run ${path_to_bhr_client_exabgp_loop};
     }
 
     neighbor 192.168.2.201 {
