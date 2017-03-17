@@ -48,7 +48,13 @@ class ExaBgpBlocker:
         return action + " " + self.block.render(cidrs=cidr_string).rstrip("\t\n ;")
 
     def send_lots_of_routes(self, action, cidrs):
-        for batch in iterwindow(cidrs, BATCHSIZE):
+        v4 = [c for c in cidrs if ':' not in c]
+        v6 = [c for c in cidrs if ':' in c]
+
+        for batch in iterwindow(v4, BATCHSIZE):
+            write(self.make_routes(action, batch))
+
+        for batch in iterwindow(v6, BATCHSIZE):
             write(self.make_routes(action, batch))
 
     def block_many(self, records):
