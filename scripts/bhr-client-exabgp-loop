@@ -5,9 +5,13 @@
 # if the user ^C exabgp we will get that signal too, ignore it and let exabgp send us a SIGTERM
 trap '' SIGINT
 
+sleep 1
+bhr-client-exabgp-process backfill || exit 1
+sleep 1
+
 while true;do
     #make sure another one isn't running
     pkill -9 -f bhr-client-exabgp-process
-    bhr-client-exabgp-process
+    bhr-client-exabgp-process run
     sleep 1
 done

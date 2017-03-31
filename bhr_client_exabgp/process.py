@@ -2,6 +2,7 @@
 from mako.template import Template
 from bhr_client.rest import login_from_env
 from bhr_client.block_manager import BlockManager
+import argparse
 import os
 import sys
 flush = sys.stdout.flush
@@ -66,12 +67,20 @@ class ExaBgpBlocker:
         self.send_lots_of_routes("withdraw", cidrs)
 
 
-def main():
+def go(mode):
     client = login_from_env()
     blocker = ExaBgpBlocker()
     m = BlockManager(client, blocker)
-    m.block_all_expected()
-    m.run()
+    if mode == "backfill":
+        m.block_all_expected()
+    else:
+        m.run()
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("mode", choices=["backfill", "run"])
+    args = parser.parse_args()
+    go(args.mode)
 
 if __name__ == "__main__":
     main()
