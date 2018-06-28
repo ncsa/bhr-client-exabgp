@@ -2,6 +2,7 @@
 from mako.template import Template
 from bhr_client.rest import login_from_env
 from bhr_client.block_manager import BlockManager
+from bhr_client_exabgp.common import get_ips
 import argparse
 import os
 import sys
@@ -43,10 +44,11 @@ class ExaBgpBlocker:
     def __init__(self):
         self.t = Template(filename=os.getenv("BHR_TEMPLATE"))
         self.block = self.t.get_def('block')
+        self.ipv4, self.ipv6 = get_ips()
 
     def make_routes(self, action, cidrs):
         cidr_string = " ".join(cidrs)
-        return action + " " + self.block.render(cidrs=cidr_string).rstrip("\t\n ;")
+        return action + " " + self.block.render(cidrs=cidr_string, ipv4=self.ipv4, ipv6=self.ipv6).rstrip("\t\n ;")
 
     def send_lots_of_routes(self, action, cidrs):
         v4 = [c for c in cidrs if ':' not in c]

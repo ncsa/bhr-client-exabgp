@@ -7,17 +7,7 @@ from mako.template import Template
 
 from bhr_client.rest import login_from_env
 
-def get_ips():
-    v4 = None
-    v6 = None
-    for res in socket.getaddrinfo(socket.gethostname(), 80):
-        af, socktype, proto, canonname, sa = res
-        if af == socket.AF_INET6:
-            v6 = sa[0]
-        else:
-            v4 = sa[0]
-
-    return v4, v6
+from bhr_client_exabgp.common import get_ips
 
 def render_config():
     c = login_from_env()
