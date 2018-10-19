@@ -3,7 +3,7 @@
 # from the exabgp examples:
 # ignore Control C
 # if the user ^C exabgp we will get that signal too, ignore it and let exabgp send us a SIGTERM
-trap '' SIGINT
+trap '' INT
 
 sleep 1
 bhr-client-exabgp-process backfill || exit 1
