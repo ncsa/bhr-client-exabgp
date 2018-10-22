@@ -47,8 +47,7 @@ class ExaBgpBlocker:
         self.ipv4, self.ipv6 = get_ips()
 
     def make_routes(self, action, cidrs):
-        cidr_string = " ".join(cidrs)
-        return action + " " + self.block.render(cidrs=cidr_string, ipv4=self.ipv4, ipv6=self.ipv6).rstrip("\t\n ;")
+        return self.block.render(action, cidrs, ipv4=self.ipv4, ipv6=self.ipv6).rstrip("\t\n ;")
 
     def send_lots_of_routes(self, action, cidrs):
         v4 = [c for c in cidrs if ':' not in c]
