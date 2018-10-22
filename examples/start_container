@@ -1,7 +1,7 @@
 #!/bin/sh
 docker run -t -i --rm \
-    -v `pwd`/template.mako:/template.mako \
-    -e BHR_TEMPLATE=/template.mako \
+    -v `pwd`:/data \
+    -e BHR_TEMPLATE=/data/template.mako \
     -e BHR_HOST=http://localhost:8000 \
     -e BHR_TOKEN=foo \
     -e BHR_IDENT=bgp1 \
