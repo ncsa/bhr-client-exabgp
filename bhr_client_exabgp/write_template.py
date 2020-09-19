@@ -28,7 +28,7 @@ def render_config():
     return t.render(**context)
 
 def main():
-    print render_config()
+    print(render_config())
 
 if __name__ == "__main__":
-    print render_config()
+    print(render_config())
