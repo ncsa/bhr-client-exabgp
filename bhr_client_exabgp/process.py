@@ -8,6 +8,7 @@ import os
 import sys
 flush = sys.stdout.flush
 
+
 def iterwindow(l, slice=50):
     """Generate sublists from an iterator
     >>> list(iterwindow(iter(range(10)),11))
@@ -23,22 +24,25 @@ def iterwindow(l, slice=50):
     """
 
     assert(slice > 0)
-    a=[]
+    a = []
 
     for x in l:
-        if len(a) >= slice :
+        if len(a) >= slice:
             yield a
-            a=[]
+            a = []
         a.append(x)
 
     if a:
         yield a
 
+
 BATCHSIZE = int(os.getenv("BHR_EXABGP_BATCH_SIZE", "50"))
+
 
 def write(msg):
     sys.stdout.write(msg + "\n")
     sys.stdout.flush()
+
 
 class ExaBgpBlocker:
     def __init__(self):
@@ -77,11 +81,13 @@ def go(mode):
     else:
         m.run()
 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("mode", choices=["backfill", "run"])
     args = parser.parse_args()
     go(args.mode)
+
 
 if __name__ == "__main__":
     main()

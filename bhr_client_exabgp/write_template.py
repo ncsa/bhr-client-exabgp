@@ -2,12 +2,12 @@
 
 from distutils.spawn import find_executable
 import os
-import socket
 from mako.template import Template
 
 from bhr_client.rest import login_from_env
 
 from bhr_client_exabgp.common import get_ips
+
 
 def render_config():
     c = login_from_env()
@@ -27,8 +27,10 @@ def render_config():
 
     return t.render(**context)
 
+
 def main():
-    print render_config()
+    print(render_config())
+
 
 if __name__ == "__main__":
-    print render_config()
+    print(render_config())
