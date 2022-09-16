@@ -1,2 +1,2 @@
 -e git+git://github.com/ncsa/bhr-client.git#egg=bhr-client
-Mako==0.9.0
+Mako==1.2.2
